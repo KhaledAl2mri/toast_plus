@@ -15,6 +15,13 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+*.cpp linguist-detectable=false
+*.cxx linguist-detectable=false
+*.cc linguist-detectable=false
+*.c linguist-detectable=false
+*.cmake linguist-detectable=false
+*.html linguist-detectable=false
+
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -28,5 +35,3 @@ migrate_working_dir/
 .dart_tool/
 build/
 
-* linguist-vendored
-*.js linguist-vendored=false
