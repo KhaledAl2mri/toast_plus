@@ -15,9 +15,9 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-*.cpp linguist-detectable=false
-*.cxx linguist-detectable=false
-*.cc linguist-detectable=false
+*.cpp linguist-detectable=true
+*.cxx linguist-detectable=true
+*.cc linguist-detectable=true
 *.c linguist-detectable=false
 *.cmake linguist-detectable=false
 *.html linguist-detectable=false
