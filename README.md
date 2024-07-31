@@ -41,4 +41,4 @@ Add `toast_plus` as a dependency in your `pubspec.yaml` file:
 dependencies:
   toast_plus:
     git:
-      url: https://github.com/yourusername/toast_plus.git
+      url: https://github.com/KhaledAl2mri/toast_plus.git
