@@ -1,6 +1,6 @@
 name: toast_plus
 description: A customizable toast notification package for Flutter with advanced features and great design.
-version: 1.0.0
+version: 1.0.5
 homepage: https://github.com/KhaledAl2mri/toast_plus
 
 environment:
@@ -10,27 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_web_plugins:
+    sdk: flutter
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.k2.toast_plus
-        pluginClass: ToastPlusPlugin
-      ios:
-        pluginClass: ToastPlusPlugin
-      web:
-        pluginClass: ToastPlusPlugin
-      macos:
-        pluginClass: ToastPlusPlugin
-      windows:
-        pluginClass: ToastPlusPlugin
-      linux:
-        pluginClass: ToastPlusPlugin
 
   # You can add assets, fonts, and other configurations as needed.
   # Example:

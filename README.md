@@ -1,10 +1,11 @@
 # ToastPlus
 
-ToastPlus is a customizable toast notification package for Flutter that provides a versatile and stylish way to display toast messages in your Flutter applications. It includes various features such as different display positions, RTL/LTR support, and advanced customization options to enhance your app’s user experience.
+`ToastPlus` is a Flutter package that provides customizable and animated toast notifications. With a range of features and design options, it allows you to enhance your application's user experience with flexible and stylish notifications.
 
 ## Features
 
-- **Customizable Positions:**
+### Basic Toast Notifications
+- Customizable Positions:
   - Top
   - Bottom
   - Left
@@ -13,32 +14,29 @@ ToastPlus is a customizable toast notification package for Flutter that provides
   - Top Right
   - Bottom Left
   - Bottom Right
+- Background Gradient Support
+- Full Width Option
+- RTL/LTR Mode
+- Close Button
+- Click to Dismiss
+- Animated Icons
+- Dark Mode Support
+- Custom Show and Hide Animation Curves
 
-- **Appearance Customization:**
-  - Background color
-  - Text color
-  - Font size
-  - Padding
-  - Margin
-  - Border radius
-
-- **Advanced Features:**
-  - No click outside to dismiss option
-  - Popup mode
-  - Delay before showing toast
-  - Auto dismiss after a duration
-  - End time widget for countdown timer
-  - Custom show and hide animations
-  - Icons and action buttons
-  - Queue system to handle multiple toasts
-  - RTL and LTR text direction support
+### Additional Features
+- No Click Outside to Dismiss Option
+- Popup Mode
+- Delay Before Showing Toast
+- Auto Dismiss After a Duration
+- End Time Widget for Countdown Timer
+- Custom Show and Hide Animations
+- Icons and Action Buttons
+- Queue System to Handle Multiple Toasts
 
 ## Installation
 
-Add `toast_plus` as a dependency in your `pubspec.yaml` file:
+Add `ToastPlus` to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  toast_plus:
-    git:
-      url: https://github.com/KhaledAl2mri/toast_plus.git
+  toast_plus: ^1.0.5

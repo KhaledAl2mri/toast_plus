@@ -21,6 +21,7 @@ class ToastPlus {
     required String message,
     required ToastPosition position,
     Color backgroundColor = Colors.black,
+    Gradient? backgroundGradient,
     Color textColor = Colors.white,
     double fontSize = 16.0,
     EdgeInsets padding = const EdgeInsets.all(16.0),
@@ -31,6 +32,8 @@ class ToastPlus {
     bool isRTL = false,
     bool noClickOutside = false,
     bool isPopup = false,
+    bool isFullWidth = false,
+    bool isDarkMode = false,
     Widget? endTimeWidget,
     VoidCallback? onDismiss,
     Widget? icon,
@@ -43,6 +46,7 @@ class ToastPlus {
         message: message,
         position: position,
         backgroundColor: backgroundColor,
+        backgroundGradient: backgroundGradient,
         textColor: textColor,
         fontSize: fontSize,
         padding: padding,
@@ -52,6 +56,8 @@ class ToastPlus {
         isRTL: isRTL,
         noClickOutside: noClickOutside,
         isPopup: isPopup,
+        isFullWidth: isFullWidth,
+        isDarkMode: isDarkMode,
         endTimeWidget: endTimeWidget,
         onDismiss: onDismiss,
         icon: icon,
@@ -85,6 +91,7 @@ class _ToastWidget extends StatefulWidget {
   final String message;
   final ToastPosition position;
   final Color backgroundColor;
+  final Gradient? backgroundGradient;
   final Color textColor;
   final double fontSize;
   final EdgeInsets padding;
@@ -94,6 +101,8 @@ class _ToastWidget extends StatefulWidget {
   final bool isRTL;
   final bool noClickOutside;
   final bool isPopup;
+  final bool isFullWidth;
+  final bool isDarkMode;
   final Widget? endTimeWidget;
   final Widget? icon;
   final Widget? actionButton;
@@ -105,6 +114,7 @@ class _ToastWidget extends StatefulWidget {
     required this.message,
     required this.position,
     required this.backgroundColor,
+    this.backgroundGradient,
     required this.textColor,
     required this.fontSize,
     required this.padding,
@@ -114,6 +124,8 @@ class _ToastWidget extends StatefulWidget {
     required this.isRTL,
     required this.noClickOutside,
     required this.isPopup,
+    required this.isFullWidth,
+    required this.isDarkMode,
     this.endTimeWidget,
     this.icon,
     this.actionButton,
@@ -191,7 +203,15 @@ class __ToastWidgetState extends State<_ToastWidget>
         child: Align(
           alignment: _getAlignment(),
           child: GestureDetector(
-            onTap: widget.noClickOutside ? () {} : null,
+            onTap: widget.noClickOutside
+                ? () {}
+                : () {
+                    _controller.reverse().then((value) {
+                      if (mounted) {
+                        setState(() {});
+                      }
+                    });
+                  },
             child: Material(
               color: Colors.transparent,
               child: FadeTransition(
@@ -199,8 +219,12 @@ class __ToastWidgetState extends State<_ToastWidget>
                 child: Container(
                   padding: widget.padding,
                   margin: widget.margin,
+                  width: widget.isFullWidth ? double.infinity : null,
                   decoration: BoxDecoration(
-                    color: widget.backgroundColor,
+                    color: widget.isDarkMode
+                        ? Colors.grey[900]
+                        : widget.backgroundColor,
+                    gradient: widget.backgroundGradient,
                     borderRadius: widget.borderRadius,
                   ),
                   child: Row(
@@ -225,6 +249,16 @@ class __ToastWidgetState extends State<_ToastWidget>
                         ),
                       ),
                       if (widget.actionButton != null) widget.actionButton!,
+                      IconButton(
+                        icon: Icon(Icons.close, color: widget.textColor),
+                        onPressed: () {
+                          _controller.reverse().then((value) {
+                            if (mounted) {
+                              setState(() {});
+                            }
+                          });
+                        },
+                      ),
                     ],
                   ),
                 ),
