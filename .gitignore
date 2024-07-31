@@ -3,6 +3,14 @@
 *.log
 *.pyc
 *.swp
+*.cpp
+*.cxx
+*.cc
+*.cc
+*.c
+*.cmake
+*.html
+
 .DS_Store
 .atom/
 .buildlog/
@@ -15,9 +23,9 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
-*.cpp linguist-detectable=true
-*.cxx linguist-detectable=true
-*.cc linguist-detectable=true
+*.cpp linguist-detectable=false
+*.cxx linguist-detectable=false
+*.cc linguist-detectable=false
 *.c linguist-detectable=false
 *.cmake linguist-detectable=false
 *.html linguist-detectable=false
