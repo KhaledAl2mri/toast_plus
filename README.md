@@ -8,6 +8,8 @@
 - **Animated Transitions**: Smooth fade-in and fade-out animations using `AnimationController`.
 - **Automatic Dismissal**: Toast messages automatically disappear after a specified duration.
 - **Flexible Styling**: Customizable background colors and icons for different types of messages.
+- **Position**: support for positioning the toast at the top or bottom of the screen .
+- **RTL SUPPORT**:  support for right-to-left text direction .
 
 ## Installation
 

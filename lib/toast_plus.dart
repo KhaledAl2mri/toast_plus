@@ -6,16 +6,20 @@ class ToastPlus {
     required String message,
     required ToastType type,
     Duration duration = const Duration(seconds: 2),
+    bool isRTL = false,
+    ToastPosition position = ToastPosition.bottom,
   }) {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
-        bottom: 50,
-        left: 0,
-        right: 0,
+        left: (position == ToastPosition.bottom && !isRTL) ? 0 : null,
+        right: (position == ToastPosition.bottom && isRTL) ? 0 : null,
+        bottom: position == ToastPosition.bottom ? 50 : null,
+        top: position == ToastPosition.top ? 50 : null,
         child: ToastWidget(
           message: message,
           type: type,
           duration: duration,
+          isRTL: isRTL,
         ),
       ),
     );
@@ -32,11 +36,13 @@ class ToastWidget extends StatefulWidget {
   final String message;
   final ToastType type;
   final Duration duration;
+  final bool isRTL;
 
   ToastWidget({
     required this.message,
     required this.type,
     required this.duration,
+    this.isRTL = false,
   });
 
   @override
@@ -82,25 +88,48 @@ class _ToastWidgetState extends State<ToastWidget>
       opacity: _fadeAnimation,
       child: Material(
         color: Colors.transparent,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          margin: EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-            color: _getBackgroundColor(widget.type),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _getIcon(widget.type),
-              SizedBox(width: 10),
-              Expanded(
-                child: Text(
-                  widget.message,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-            ],
+        child: Align(
+          alignment:
+              widget.isRTL ? Alignment.centerRight : Alignment.centerLeft,
+          child: Container(
+            constraints: BoxConstraints(
+              maxWidth: MediaQuery.of(context).size.width - 40,
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            decoration: BoxDecoration(
+              color: _getBackgroundColor(widget.type),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisAlignment: widget.isRTL
+                  ? MainAxisAlignment.end
+                  : MainAxisAlignment.start,
+              children: [
+                if (widget.isRTL) ...[
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      widget.message,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.right,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  _getIcon(widget.type),
+                ] else ...[
+                  _getIcon(widget.type),
+                  SizedBox(width: 10),
+                  Expanded(
+                    child: Text(
+                      widget.message,
+                      style: TextStyle(color: Colors.white),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ],
+              ],
+            ),
           ),
         ),
       ),
@@ -150,3 +179,5 @@ class _ToastWidgetState extends State<ToastWidget>
 }
 
 enum ToastType { success, danger, info, warning }
+
+enum ToastPosition { top, bottom }

@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.7] - 2024-08-01
+### Added
+- **`position` Parameter**: Added support for positioning the toast at the top or bottom of the screen .
+- **`isRTL` Parameter**: Added support for right-to-left text direction .
+
+
+
 ## [1.0.6] - 2024-07-31
 ### Added
 - **Initial release of ToastPlus package**: Provides a static method `show` for displaying toast messages.

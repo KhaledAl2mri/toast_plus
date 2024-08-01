@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
   void _showToast(BuildContext context, ToastType type) {
-    ToastPlus.show(
-      context,
-      message:
-          "Hello im ${type.toString().split('.').last} and this must be long text to test that",
-      type: type,
-      duration: const Duration(seconds: 12),
-    );
+    ToastPlus.show(context,
+        message:
+            "Hello im ${type.toString().split('.').last} and this must be long text to test that",
+        type: type,
+        duration: const Duration(seconds: 3),
+        isRTL: false,
+        position: ToastPosition.top);
   }
 
   @override
