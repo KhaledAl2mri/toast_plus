@@ -1,40 +1,14 @@
-# 1.0.5
+# Changelog
 
-## [1.0.5] - 2024-07-31
+## [1.0.6] - 2024-07-31
 ### Added
-- Initial release of ToastPlus package.
-- Basic toast notifications with customizable positions:
-  - Top
-  - Bottom
-  - Left
-  - Right
-  - Top Left
-  - Top Right
-  - Bottom Left
-  - Bottom Right
-  - Background Gradient Support
-  - Full Width Option
-  - RTL/LTR Mode
-  - Close Button
-  - Click to Dismiss
-  - Animated Icons
-  - Dark Mode Support
-  - Custom Show and Hide Animation Curvesproperties.
-
-
-- Additional features:
-  - No click outside to dismiss option
-  - Popup mode
-  - Delay before showing toast
-  - Auto dismiss after a duration
-  - End time widget for countdown timer
-  - Custom show and hide animations
-  - Icons and action buttons
-  - Queue system to handle multiple toasts
-
+- **Initial release of ToastPlus package**: Provides a static method `show` for displaying toast messages.
+- **`ToastWidget` Class**: Implements toast notifications with customizable message, type, and duration.
+- **Toast Types**: Added support for different types of toasts (success, danger, info, warning) with distinct colors and icons.
+- **Animations**: Introduced fade-in and fade-out animations for toast notifications using `AnimationController` and `FadeTransition`.
 
 ### Fixed
-- **Dismiss on Close Button Click**
+- **Dismiss on Close Button Click**: Ensured the toast widget is properly removed from the overlay after the specified duration.
 
 ### Changed
-- **Improved Design**
+- **Improved Design**: Enhanced the visual design of the toast notifications, including background color and icon adjustments.

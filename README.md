@@ -1,42 +1,20 @@
 # ToastPlus
 
-`ToastPlus` is a Flutter package that provides customizable and animated toast notifications. With a range of features and design options, it allows you to enhance your application's user experience with flexible and stylish notifications.
+`ToastPlus` is a Flutter package for displaying customizable toast messages with smooth animations. It allows you to show transient notifications with various styles based on the type of message.
 
 ## Features
 
-### Basic Toast Notifications
-- Customizable Positions:
-  - Top
-  - Bottom
-  - Left
-  - Right
-  - Top Left
-  - Top Right
-  - Bottom Left
-  - Bottom Right
-- Background Gradient Support
-- Full Width Option
-- RTL/LTR Mode
-- Close Button
-- Click to Dismiss
-- Animated Icons
-- Dark Mode Support
-- Custom Show and Hide Animation Curves
-
-### Additional Features
-- No Click Outside to Dismiss Option
-- Popup Mode
-- Delay Before Showing Toast
-- Auto Dismiss After a Duration
-- End Time Widget for Countdown Timer
-- Custom Show and Hide Animations
-- Icons and Action Buttons
-- Queue System to Handle Multiple Toasts
+- **Customizable Toast Messages**: Display messages with custom text and types (success, danger, info, warning).
+- **Animated Transitions**: Smooth fade-in and fade-out animations using `AnimationController`.
+- **Automatic Dismissal**: Toast messages automatically disappear after a specified duration.
+- **Flexible Styling**: Customizable background colors and icons for different types of messages.
 
 ## Installation
 
-Add `ToastPlus` to your `pubspec.yaml`:
+Add `ToastPlus` to your `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  toast_plus: ^1.0.5
+  flutter:
+    sdk: flutter
+  toast_plus: ^1.0.6
