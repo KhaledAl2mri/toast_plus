@@ -9,48 +9,71 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ToastPlus Demo',
-      home: HomePage(),
+      title: 'ToastPlus Example',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  void _showToast(BuildContext context, ToastType type) {
-    ToastPlus.show(context,
-        message:
-            "Hello im ${type.toString().split('.').last} and this must be long text to test that",
-        type: type,
-        duration: const Duration(seconds: 3),
-        isRTL: false,
-        position: ToastPosition.top);
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ToastPlus Demo'),
+        title: Text('ToastPlus Example'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             ElevatedButton(
-              onPressed: () => _showToast(context, ToastType.success),
+              onPressed: () {
+                ToastPlus.show(
+                  context,
+                  message: "Success toast with custom style!",
+                  type: ToastType.success,
+                  textStyle: TextStyle(
+                      color: Color.fromARGB(255, 98, 255, 145), fontSize: 23),
+                );
+              },
               child: Text('Show Success Toast'),
             ),
             ElevatedButton(
-              onPressed: () => _showToast(context, ToastType.danger),
+              onPressed: () {
+                ToastPlus.show(
+                  context,
+                  message: "Danger toast with animated icon!",
+                  type: ToastType.danger,
+                  animatedIcon: true,
+                );
+              },
               child: Text('Show Danger Toast'),
             ),
             ElevatedButton(
-              onPressed: () => _showToast(context, ToastType.info),
-              child: Text('Show Info Toast'),
+              onPressed: () {
+                ToastPlus.show(
+                  context,
+                  message: "Info toast at the top!",
+                  type: ToastType.info,
+                  position: ToastPosition.top,
+                );
+              },
+              child: Text('Show Info Toast (Top)'),
             ),
             ElevatedButton(
-              onPressed: () => _showToast(context, ToastType.warning),
-              child: Text('Show Warning Toast'),
+              onPressed: () {
+                ToastPlus.show(
+                  context,
+                  message: "Custom widget inside toast!",
+                  type: ToastType.none,
+                  customBackgroundColor: Color.fromARGB(255, 18, 16, 19),
+                  borderRadius: 100.0,
+                );
+              },
+              child: Text('Show non icon Toast'),
             ),
           ],
         ),

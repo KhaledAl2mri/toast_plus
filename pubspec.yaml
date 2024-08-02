@@ -1,6 +1,6 @@
 name: toast_plus
 description: A customizable toast notification package for Flutter with advanced features and great design.
-version: 1.0.7
+version: 1.0.8
 homepage: https://github.com/KhaledAl2mri/toast_plus
 
 environment:

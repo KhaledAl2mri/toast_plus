@@ -19,4 +19,4 @@ Add `ToastPlus` to your `pubspec.yaml` file:
 dependencies:
   flutter:
     sdk: flutter
-  toast_plus: ^1.0.6
+  toast_plus: ^1.0.8

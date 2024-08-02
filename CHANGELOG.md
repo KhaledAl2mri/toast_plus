@@ -1,9 +1,17 @@
 # Changelog
 
+
+## [1.0.8] - 2024-08-02
+### Added
+- **`borderRadius`**: Added support for customizing the border radius of the toast.
+- **`customTextStyle`**: Added support for customizing the text style (font size, color, etc.) of the toast.
+- **`animation`**: Added support for animation effects, including zoom animations for icons.
+
+
 ## [1.0.7] - 2024-08-01
 ### Added
-- **`position` Parameter**: Added support for positioning the toast at the top or bottom of the screen .
-- **`isRTL` Parameter**: Added support for right-to-left text direction .
+- **`position`**: Added support for positioning the toast at the top or bottom of the screen .
+- **`isRTL`**: Added support for right-to-left text direction .
 
 
 

@@ -8,6 +8,12 @@ class ToastPlus {
     Duration duration = const Duration(seconds: 2),
     bool isRTL = false,
     ToastPosition position = ToastPosition.bottom,
+    bool animatedIcon = false,
+    IconData? customIcon,
+    Color? customBackgroundColor,
+    TextStyle? textStyle,
+    double borderRadius = 8.0,
+    UniqueKey? toastKey,
   }) {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (context) => Positioned(
@@ -16,15 +22,21 @@ class ToastPlus {
         bottom: position == ToastPosition.bottom ? 50 : null,
         top: position == ToastPosition.top ? 50 : null,
         child: ToastWidget(
+          key: toastKey ?? UniqueKey(),
           message: message,
           type: type,
           duration: duration,
           isRTL: isRTL,
+          animatedIcon: animatedIcon,
+          customIcon: customIcon,
+          customBackgroundColor: customBackgroundColor,
+          textStyle: textStyle,
+          borderRadius: borderRadius,
         ),
       ),
     );
 
-    Overlay.of(context)!.insert(overlayEntry);
+    Overlay.of(context).insert(overlayEntry);
 
     Future.delayed(duration, () {
       overlayEntry.remove();
@@ -37,13 +49,24 @@ class ToastWidget extends StatefulWidget {
   final ToastType type;
   final Duration duration;
   final bool isRTL;
+  final bool animatedIcon;
+  final IconData? customIcon;
+  final Color? customBackgroundColor;
+  final TextStyle? textStyle;
+  final double borderRadius;
 
   ToastWidget({
+    Key? key,
     required this.message,
     required this.type,
     required this.duration,
     this.isRTL = false,
-  });
+    this.animatedIcon = false,
+    this.customIcon,
+    this.customBackgroundColor,
+    this.textStyle,
+    this.borderRadius = 8.0,
+  }) : super(key: key);
 
   @override
   _ToastWidgetState createState() => _ToastWidgetState();
@@ -53,6 +76,7 @@ class _ToastWidgetState extends State<ToastWidget>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
+  late Animation<double> _zoomAnimation;
 
   @override
   void initState() {
@@ -70,12 +94,19 @@ class _ToastWidgetState extends State<ToastWidget>
       ),
     );
 
+    _zoomAnimation = Tween<double>(begin: -10, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.easeOutBack, // Smooth zoom effect
+      ),
+    );
+
     _controller.forward().then((_) {
       Future.delayed(widget.duration, () {
         _controller.reverse().then((_) {
           if (mounted) {
             // Remove the toast from the overlay
-            Overlay.of(context)!.dispose();
+            Overlay.of(context).dispose();
           }
         });
       });
@@ -98,8 +129,9 @@ class _ToastWidgetState extends State<ToastWidget>
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             margin: EdgeInsets.symmetric(horizontal: 20),
             decoration: BoxDecoration(
-              color: _getBackgroundColor(widget.type),
-              borderRadius: BorderRadius.circular(8),
+              color: widget.customBackgroundColor ??
+                  _getBackgroundColor(widget.type),
+              borderRadius: BorderRadius.circular(widget.borderRadius),
             ),
             child: Row(
               mainAxisAlignment: widget.isRTL
@@ -111,19 +143,19 @@ class _ToastWidgetState extends State<ToastWidget>
                   Expanded(
                     child: Text(
                       widget.message,
-                      style: TextStyle(color: Colors.white),
+                      style: widget.textStyle ?? TextStyle(color: Colors.white),
                       textAlign: TextAlign.right,
                     ),
                   ),
                   SizedBox(width: 10),
-                  _getIcon(widget.type),
+                  _buildIcon(),
                 ] else ...[
-                  _getIcon(widget.type),
+                  _buildIcon(),
                   SizedBox(width: 10),
                   Expanded(
                     child: Text(
                       widget.message,
-                      style: TextStyle(color: Colors.white),
+                      style: widget.textStyle ?? TextStyle(color: Colors.white),
                       textAlign: TextAlign.left,
                     ),
                   ),
@@ -134,6 +166,27 @@ class _ToastWidgetState extends State<ToastWidget>
         ),
       ),
     );
+  }
+
+  Widget _buildIcon() {
+    if (widget.type == ToastType.none) {
+      return SizedBox.shrink();
+    }
+
+    Widget icon = Icon(
+      widget.customIcon ?? _getIconData(widget.type),
+      color: Colors.white,
+      size: 24,
+    );
+
+    if (widget.animatedIcon) {
+      icon = ScaleTransition(
+        scale: _zoomAnimation,
+        child: icon,
+      );
+    }
+
+    return icon;
   }
 
   Color _getBackgroundColor(ToastType type) {
@@ -151,33 +204,22 @@ class _ToastWidgetState extends State<ToastWidget>
     }
   }
 
-  Widget _getIcon(ToastType type) {
-    IconData icon;
+  IconData _getIconData(ToastType type) {
     switch (type) {
       case ToastType.success:
-        icon = Icons.check_circle;
-        break;
+        return Icons.check_circle;
       case ToastType.danger:
-        icon = Icons.error;
-        break;
+        return Icons.error;
       case ToastType.info:
-        icon = Icons.info;
-        break;
+        return Icons.info;
       case ToastType.warning:
-        icon = Icons.warning;
-        break;
+        return Icons.warning;
       default:
-        icon = Icons.help_outline;
+        return Icons.help_outline;
     }
-
-    return Icon(
-      icon,
-      color: Colors.white,
-      size: 24,
-    );
   }
 }
 
-enum ToastType { success, danger, info, warning }
+enum ToastType { success, danger, info, warning, none }
 
 enum ToastPosition { top, bottom }
